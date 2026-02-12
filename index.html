@@ -3,95 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohamed Library</title>
-
+<title>Mohamed Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
 <style>
-body{
-    margin:0;
-    font-family:Tahoma, Arial;
-    background:#0f172a;
-    color:white;
-    text-align:center;
-}
-
-header{
-    padding:30px;
-    background:#1e293b;
-    font-size:28px;
-    font-weight:bold;
-}
-
-.container{
-    padding:40px 20px;
-}
-
-.box{
-    background:#1e293b;
-    margin:15px auto;
-    padding:20px;
-    border-radius:10px;
-    max-width:500px;
-    transition:0.3s;
-}
-
-.box:hover{
-    background:#334155;
-    transform:scale(1.03);
-}
-
-a{
-    color:#38bdf8;
-    text-decoration:none;
-    font-size:18px;
-}
-
-a:hover{
-    color:#22c55e;
-}
-
-footer{
-    margin-top:40px;
-    padding:20px;
-    background:#1e293b;
-    font-size:14px;
-}
+body{font-family:Cairo,sans-serif;background:#000814;color:white;text-align:center;overflow-x:hidden;}
+.stars{position:fixed;width:100%;height:100%;background:transparent url(https://www.transparenttextures.com/patterns/stardust.png);z-index:-1;animation:moveStars 60s linear infinite;}
+@keyframes moveStars{from{background-position:0 0;}to{background-position:1000px 1000px;}}
+header{padding:40px 20px;font-size:24px;font-weight:bold;background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);box-shadow:0 0 20px rgba(0,200,255,0.5);}
+.container{padding:40px 20px;}
+.card{background:rgba(255,255,255,0.05);margin:15px auto;padding:15px;border-radius:12px;max-width:350px;box-shadow:0 0 15px rgba(0,140,255,0.4);transition:0.3s;}
+.card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 0 30px rgba(0,255,255,0.7);}
+a{color:#00eaff;text-decoration:none;font-weight:bold;}
+a:hover{color:#00ffcc;}
+footer{margin-top:40px;padding:20px;background:rgba(255,255,255,0.05);box-shadow:0 -5px 15px rgba(0,200,255,0.4);}
+.contact-buttons{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:10px;z-index:999;}
+.contact-buttons img{width:50px;height:50px;transition:transform .2s;}
+.contact-buttons img:hover{transform:scale(1.1);}
 </style>
-
 </head>
 <body>
 
+<div class="stars"></div>
+
 <header>
-    اهلا بيك يا هندسة 👋<br>
-    منصة محمد التعليمية
+اهلا بيك يا هندسة 👋 <br>
+منصة محمد التعليمية
 </header>
 
-<div class="container">
-
-    <div class="box">
-        <a href="#">📹 فيديوهات الشرح</a>
-    </div>
-
-    <div class="box">
-        <a href="#">📚 المذكرات</a>
-    </div>
-
-    <div class="box">
-        <a href="#">📖 الكتب</a>
-    </div>
-
-    <div class="box">
-        <a href="#">📝 الامتحانات</a>
-    </div>
-
-    <div class="box">
-        <a href="#">💻 مشاريع وبرمجة</a>
-    </div>
-
+<div class="container" id="courses-list">
+<!-- الكورسات تظهر هنا -->
 </div>
 
 <footer>
-    تم التطوير بواسطة ~ Mohamed ~
+تم التطوير بواسطة ~ Mohamed ~ 🔥
 </footer>
+
+<div class="contact-buttons">
+<a href="https://wa.me/201010298878" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+<a href="https://t.me/Mo7amedEL_JOKER_ss7" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+
+<script>
+fetch("courses.json")
+.then(res=>res.json())
+.then(data=>{
+  let container=document.getElementById("courses-list");
+  container.innerHTML="";
+  data.forEach(c=>{
+    container.innerHTML+=`
+    <div class="card">
+      <strong>${c.title} | ${c.title_ar}</strong><br>
+      <p>${c.desc}<br>${c.desc_ar}</p>
+      <small>${c.price} - ${c.price_ar}</small><br>
+      <a href="${c.link}" target="_blank">رابط الكورس</a>
+      ${c.image?`<img src="${c.image}" style="width:100%;border-radius:6px;margin-top:5px;">`:  }
+    </div>
+    `;
+  });
+});
+</script>
 
 </body>
 </html>

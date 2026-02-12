@@ -1,0 +1,12 @@
+[
+  {
+    "title":"Web Development",
+    "title_ar":"تطوير المواقع",
+    "desc":"Learn HTML, CSS, JS",
+    "desc_ar":"تعلم HTML, CSS, JS",
+    "price":"Free",
+    "price_ar":"مجاني",
+    "link":"https://example.com/course1",
+    "image":"https://via.placeholder.com/350x150"
+  }
+]
